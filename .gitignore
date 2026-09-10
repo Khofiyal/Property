@@ -12,3 +12,11 @@ __pycache__/
 .venv/
 venv/
 tsconfig.tsbuildinfo
+.agents/
+.claude/
+.cursor/
+.devin/
+AGENTS.md
+CLAUDE.md
+PRD.md
+skills-lock.json
