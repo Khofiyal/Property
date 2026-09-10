@@ -15,8 +15,19 @@ export async function GET(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
     const { searchParams } = req.nextUrl;
+    const id = searchParams.get("id");
     const status = searchParams.get("status");
-    const where = status ? { status } : {};
+
+    if (id) {
+      const property = await prisma.property.findUnique({
+        where: { id },
+        include: { images: { orderBy: { order: "asc" } } },
+      });
+      if (!property) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      return NextResponse.json({ data: [serialize(property)] });
+    }
+
+    const where: any = status ? { status } : {};
     const data = await prisma.property.findMany({ where, include: { images: { orderBy: { order: "asc" } } }, orderBy: { createdAt: "desc" } });
     return NextResponse.json({ data: data.map(serialize) });
   } catch (e: any) {

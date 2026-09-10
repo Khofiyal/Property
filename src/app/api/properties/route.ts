@@ -16,8 +16,8 @@ export async function GET(req: NextRequest) {
     if (type) where.type = type;
     if (category) where.category = category;
     if (status) where.status = status;
-    if (city) where.city = { contains: city, mode: "insensitive" };
-    if (q) where.OR = [{ title: { contains: q, mode: "insensitive" } }, { city: { contains: q, mode: "insensitive" } }];
+    if (city) where.city = { contains: city };
+    if (q) where.OR = [{ title: { contains: q } }, { city: { contains: q } }];
 
     const [data, total] = await Promise.all([
       prisma.property.findMany({
@@ -30,7 +30,12 @@ export async function GET(req: NextRequest) {
       prisma.property.count({ where }),
     ]);
 
-    return NextResponse.json({ data, total });
+    const serializedData = data.map((p: any) => ({
+      ...p,
+      price: p.price.toString(),
+    }));
+
+    return NextResponse.json({ data: serializedData, total });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }

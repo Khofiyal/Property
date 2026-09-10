@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     if (!expected || pin !== expected) {
       return NextResponse.json({ error: "PIN salah" }, { status: 401 });
     }
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.redirect(new URL("/admin", req.url));
     res.cookies.set("admin_pin", pin, {
       httpOnly: true,
       sameSite: "lax",

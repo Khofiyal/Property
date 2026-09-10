@@ -1,41 +1,99 @@
 @import "tailwindcss";
 
+/* -------------------------------------------------------------------------
+   LUXURY COLOR SYSTEM (Dark default, Auto/Light System & Manual Toggle)
+   ------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #09090b;
+  --fg: #fafafa;
+  --surface: #121215;
+  --surface-subtle: #18181b;
+  --surface-card: #141417;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(212, 175, 55, 0.4);
+  --gold: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-dark: #997a15;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #fbfbfa;
+    --fg: #18181b;
+    --surface: #ffffff;
+    --surface-subtle: #f4f4f5;
+    --surface-card: #ffffff;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(184, 134, 11, 0.5);
+    --gold: #b8860b;
+    --gold-light: #8c6508;
+    --gold-dark: #664903;
+    --text-primary: #18181b;
+    --text-secondary: #52525b;
+    --text-muted: #a1a1aa;
   }
 }
 
+:root[data-theme="light"] {
+  --bg: #fbfbfa;
+  --fg: #18181b;
+  --surface: #ffffff;
+  --surface-subtle: #f4f4f5;
+  --surface-card: #ffffff;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(184, 134, 11, 0.5);
+  --gold: #b8860b;
+  --gold-light: #8c6508;
+  --gold-dark: #664903;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+}
+
+:root[data-theme="dark"] {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --surface: #121215;
+  --surface-subtle: #18181b;
+  --surface-card: #141417;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(212, 175, 55, 0.4);
+  --gold: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-dark: #997a15;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+}
+
+/* -------------------------------------------------------------------------
+   BASE SETUP
+   ------------------------------------------------------------------------- */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom utilities for mobile-first admin */
-.touch-target {
-  min-height: 48px;
-  font-size: 1rem;
+/* Fluid easing */
+.ease-spring {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Scrollbar hidden */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.touch-target {
+  min-height: 48px;
 }

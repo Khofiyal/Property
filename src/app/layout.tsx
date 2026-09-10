@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Katalog Properti Enci — Rumah, Ruko, Tanah & Apartemen",
-  description: "Daftar properti favorit Enci. Hubungi langsung via WhatsApp.",
+  title: "Property By Enci — Rumah, Ruko, Tanah & Apartemen",
+  description: "Daftar properti eksklusif pilihan Property By Enci. Hubungi langsung via WhatsApp.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
